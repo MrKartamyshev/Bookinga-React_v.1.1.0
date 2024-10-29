@@ -2,8 +2,8 @@ import { NavbarBrand } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
-import logoLightSvg from '@/assets/images/logo-light.svg'
-import logoSvg from '@/assets/images/logo.svg'
+import logoLightSvg from '@/assets/images/my-logo-light.png'
+import logoSvg from '@/assets/images/my-logo-light.png'
 
 type LogoBoxType = {
   imgClassName?: string

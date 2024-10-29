@@ -1,13 +1,15 @@
-import { AdminLayout, AgentLayout, AuthLayout, DefaultLayout, HelpLayout, UserLayout } from '@/layouts'
-import { adminRoutes, agentRoutes, appRoutes, authRoutes, helpRoutes, userRoutes } from '@/routes/index'
-import { useAuthContext } from '@/states'
-import { Navigate, Route, Routes, type RouteProps } from 'react-router-dom'
+import { AdminLayout, AgentLayout, AuthLayout, DefaultLayout, HelpLayout, UserLayout } from '@/layouts';
+import { adminRoutes, agentRoutes, appRoutes, authRoutes, helpRoutes, userRoutes } from '@/routes/index';
+import { useAuthContext } from '@/states';
+import { Navigate, Route, Routes, type RouteProps } from 'react-router-dom';
+
 
 const AppRouter = (props: RouteProps) => {
-  const { isAuthenticated } = useAuthContext()
+  const { isAuthenticated } = useAuthContext();
 
   return (
     <Routes>
+
       {(appRoutes || []).map((route, idx) => (
         <Route key={idx + route.name} path={route.path} element={<DefaultLayout {...props}>{route.element}</DefaultLayout>} />
       ))}
@@ -77,7 +79,7 @@ const AppRouter = (props: RouteProps) => {
         />
       ))}
     </Routes>
-  )
-}
+  );
+};
 
-export default AppRouter
+export default AppRouter;

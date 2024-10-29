@@ -7,7 +7,7 @@ import { developedByLink, currentYear } from '@/states'
 
 const Footer = () => {
   return (
-    <footer className="bg-dark p-3">
+    <footer className="bg-white p-3">
       <Container>
         <Row className="align-items-center">
           <Col md={4}>
