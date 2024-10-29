@@ -1,171 +1,91 @@
-import { BsEnvelope, BsTelephone } from 'react-icons/bs'
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa6'
-import { Button, Col, Container, Image, Nav, NavItem, NavLink, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-
-import { footerLinks, topLinks } from '@/assets/data/footer-items'
-
-import logoLight from '@/assets/images/logo-light.svg'
-import expresscard from '@/assets/images/element/expresscard.svg'
-import mastercard from '@/assets/images/element/mastercard.svg'
-import paypal from '@/assets/images/element/paypal.svg'
-import visa from '@/assets/images/element/visa.svg'
+import { footerLinks } from '@/assets/data/footer-items'
+import { LogoBox, TextFormInput } from '@/components'
 import { developedByLink, currentYear } from '@/states'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Button, Col, Container, Row } from 'react-bootstrap'
+import { useForm } from 'react-hook-form'
+import { type IconType } from 'react-icons'
+import { BsSend } from 'react-icons/bs'
+import { FaFacebookF, FaGithub, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa6'
+import { Link } from 'react-router-dom'
+import * as yup from 'yup'
+
+const apps: IconType[] = [FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaGithub]
 
 const FooterWithLinks = () => {
+  const subscribeSchema = yup.object({
+    email: yup.string().required('Please enter your email'),
+  })
+  const { control, handleSubmit } = useForm({
+    resolver: yupResolver(subscribeSchema),
+  })
+
   return (
-    <footer className="bg-dark pt-5">
+    <footer>
       <Container>
-        <Row className="g-4">
-          <Col lg={3}>
-            <Link to="/">
-              <img className="h-40px" src={logoLight} alt="logo" />
-            </Link>
-            <p className="my-3 text-body-secondary">Departure defective arranging rapturous did believe him all had supported.</p>
-            <p className="mb-2">
-              <Link to="" className="text-body-secondary text-primary-hover d-flex align-items-center">
-                <BsTelephone className=" me-2" />
-                +1234 568 963
-              </Link>
-            </p>
-            <p className="mb-0">
-              <Link to="" className="text-body-secondary text-primary-hover d-flex align-items-center">
-                <BsEnvelope className=" me-2" />
-                example@gmail.com
-              </Link>
-            </p>
-          </Col>
-          <Col lg={8} className="ms-auto">
-            <Row className="g-4">
-              {footerLinks.map((item, idx) => {
-                return (
-                  <Col xs={6} md={3} key={idx}>
-                    <h5 className="text-white mb-2 mb-md-4">{item.title}</h5>
-                    <Nav className="flex-column text-primary-hover">
-                      {item.items.map((item, i) => {
-                        const Icon = item.icon
-                        return (
-                          <NavItem key={i}>
-                            <NavLink className="text-body-secondary d-flex align-items-center" href={item.link}>
-                              {Icon && <Icon className="me-2" />}
-                              {item.name}
-                            </NavLink>
-                          </NavItem>
-                        )
-                      })}
-                    </Nav>
-                  </Col>
-                )
-              })}
-            </Row>
-          </Col>
-        </Row>
-        <Row className="mt-5">
-          <h5 className="mb-2 text-white">Top Links</h5>
-          <ul className="list-inline text-primary-hover lh-lg">
-            {topLinks.map((item, idx) => (
-              <li key={idx} className="list-inline-item me-2">
-                <Link to={item.link ?? ''} className="text-body-secondary">
-                  {item.name}&nbsp;
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Row>
-        <Row className="g-4 justify-content-between mt-0 mt-md-2">
-          <Col sm={7} md={6} lg={4}>
-            <h5 className="text-white mb-2">Payment &amp; Security</h5>
-            <ul className="list-inline mb-0 mt-3">
-              <li className="list-inline-item me-2">
-                {' '}
-                <Link to="">
-                  <Image src={paypal} className="h-30px me-1" />
-                </Link>
-              </li>
-              <li className="list-inline-item me-2">
-                {' '}
-                <Link to="">
-                  <Image src={visa} className="h-30px me-1" />
-                </Link>
-              </li>
-              <li className="list-inline-item me-2">
-                {' '}
-                <Link to="">
-                  <Image src={mastercard} className="h-30px me-1" />
-                </Link>
-              </li>
-              <li className="list-inline-item me-2">
-                {' '}
-                <Link to="">
-                  <Image src={expresscard} className="h-30px me-1" />
-                </Link>
-              </li>
-            </ul>
-          </Col>
-          <Col sm={5} md={6} lg={3} className="text-sm-end">
-            <h5 className="text-white mb-2">Follow us on</h5>
-            <ul className="list-inline mb-0 mt-3 d-flex gap-2 justify-content-end">
-              <li className="list-inline-item">
-                {' '}
-                <Button size="sm" className="shadow px-2 bg-facebook mb-0" href="">
-                  <FaFacebookF size={16} />
-                </Button>{' '}
-              </li>
-              <li className="list-inline-item">
-                {' '}
-                <Button size="sm" className="shadow px-2 bg-instagram mb-0" href="">
-                  <FaInstagram size={16} />
-                </Button>{' '}
-              </li>
-              <li className="list-inline-item">
-                {' '}
-                <Button size="sm" className="shadow px-2 bg-twitter mb-0" href="">
-                  <FaTwitter size={16} />
-                </Button>{' '}
-              </li>
-              <li className="list-inline-item">
-                {' '}
-                <Button size="sm" className="shadow px-2 bg-linkedin mb-0" href="">
-                  <FaLinkedinIn size={16} />
-                </Button>{' '}
-              </li>
-            </ul>
-          </Col>
-        </Row>
-        <hr className="mt-4 mb-0" />
-        <Row>
-          <Container>
-            <div className="d-lg-flex justify-content-between align-items-center py-3 text-center text-lg-start">
-              <div className="text-body-secondary text-primary-hover">
-                {' '}
-                Copyrights ©{currentYear} Booking. Build by{' '}
-                <a href={developedByLink} target="_blank" className="text-body-secondary">
+        <div className="bg-light rounded-top p-4 pb-0">
+          <Row className="g-4 justify-content-between">
+            <Col md={5} lg={4}>
+              <LogoBox imgClassName="h-40px" />
+              <p className="text-reset mt-4 mb-2">Subscribe to Our Newsletter</p>
+              <form onSubmit={handleSubmit(() => {})} className="bg-body rounded-2 p-2">
+                <div className="input-group">
+                  <TextFormInput name="email" className="border-0 me-1" placeholder="Enter your email" control={control} combinedInput />
+                  <Button variant="dark" type="submit" className="rounded-2 mb-0 flex-centered">
+                    <BsSend />
+                  </Button>
+                </div>
+              </form>
+            </Col>
+            <Col md={7} lg={4}>
+              <Row className="g-4 g-lg-5">
+                {footerLinks.slice(0, 2).map((item, idx) => {
+                  return (
+                    <Col xs={6} key={idx}>
+                      <h5 className="mb-2 mb-md-4">{item.title}</h5>
+                      <ul className="nav flex-column">
+                        {item.items.map((item, idx) => {
+                          return (
+                            <li key={idx} className="nav-item mb-1">
+                              <Link className="nav-link pt-0" to={item.link ?? ''}>
+                                {item.name}
+                              </Link>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    </Col>
+                  )
+                })}
+              </Row>
+            </Col>
+          </Row>
+          <hr className="mt-4 mb-0" />
+          <Container className="py-3 px-0">
+            <div className="d-md-flex justify-content-between align-items-center text-center text-md-left">
+              <div className="text-primary-hover text-body">
+                Copyrights ©{currentYear} Booking. build by{' '}
+                <Link to={developedByLink} className="text-body">
                   Webestica
-                </a>
-                .{' '}
+                </Link>.
               </div>
-              <Nav className="nav mt-2 mt-lg-0">
-                <ul className="list-inline text-primary-hover mx-auto mb-0">
-                  <li className="list-inline-item me-0">
-                    <NavLink className="text-body-secondary py-1" href="">
-                      Privacy policy
-                    </NavLink>
-                  </li>
-                  <li className="list-inline-item me-0">
-                    <NavLink className="text-body-secondary py-1" href="">
-                      Terms and conditions
-                    </NavLink>
-                  </li>
-                  <li className="list-inline-item me-0">
-                    <NavLink className="text-body-secondary py-1 pe-0" href="">
-                      Refund policy
-                    </NavLink>
-                  </li>
+              <div className="mt-3 mt-md-0">
+                <ul className="nav text-primary-hover justify-content-center justify-content-md-end">
+                  {apps.map((app, idx) => {
+                    const Icon = app
+                    return (
+                      <li className="nav-item" key={idx}>
+                        <Link className="nav-link text-body" to="">
+                          <Icon />
+                        </Link>
+                      </li>
+                    )
+                  })}
                 </ul>
-              </Nav>
+              </div>
             </div>
           </Container>
-        </Row>
+        </div>
       </Container>
     </footer>
   )
